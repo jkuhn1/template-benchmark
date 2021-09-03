@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Locale;
+import java.util.concurrent.ExecutionException;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -30,6 +31,13 @@ public class ExpectedOutputTest {
         Freemarker freemarker = new Freemarker();
         freemarker.setup();
         assertOutput(freemarker.benchmark());
+    }
+    
+    @Test
+    public void testInvernoOutput() throws IOException, InterruptedException, ExecutionException {
+        Inverno inverno = new Inverno();
+        inverno.setup();
+        assertOutput(inverno.benchmark());
     }
     
     @Test

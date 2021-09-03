@@ -1,5 +1,6 @@
 package com.mitchellbosecke.benchmark;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
@@ -14,6 +15,7 @@ import org.openjdk.jmh.annotations.Setup;
 import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.MustacheException;
 import com.github.mustachejava.MustacheFactory;
+import com.github.mustachejava.resolver.FileSystemResolver;
 import com.mitchellbosecke.benchmark.model.Stock;
 
 public class Mustache extends BaseBenchmark {
@@ -22,7 +24,8 @@ public class Mustache extends BaseBenchmark {
 
     @Setup
     public void setup() {
-        MustacheFactory mustacheFactory = new DefaultMustacheFactory() {
+    	MustacheFactory mustacheFactory = new DefaultMustacheFactory(new FileSystemResolver(new File("src/main/resources"))) {
+//        MustacheFactory mustacheFactory = new DefaultMustacheFactory() {
 
             @Override
             public void encode(String value, Writer writer) {

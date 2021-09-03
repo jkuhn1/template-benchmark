@@ -10,7 +10,7 @@ import org.openjdk.jmh.annotations.Setup;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.context.IContext;
-import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
+import org.thymeleaf.templateresolver.FileTemplateResolver;
 
 import freemarker.template.TemplateException;
 
@@ -23,14 +23,15 @@ public class Thymeleaf extends BaseBenchmark {
     @Setup
     public void setup() throws IOException {
         engine = new TemplateEngine();
-        engine.setTemplateResolver(new ClassLoaderTemplateResolver());
+//        engine.setTemplateResolver(new ClassLoaderTemplateResolver());
+        engine.setTemplateResolver(new FileTemplateResolver());
         context = new Context(Locale.getDefault(), getContext());
     }
 
     @Benchmark
     public String benchmark() throws TemplateException, IOException {
         Writer writer = new StringWriter();
-        engine.process("templates/stocks.thymeleaf.html", context, writer);
+        engine.process("src/main/resources/templates/stocks.thymeleaf.html", context, writer);
         return writer.toString();
     }
 

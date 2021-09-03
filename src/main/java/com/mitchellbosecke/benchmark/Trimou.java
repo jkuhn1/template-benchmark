@@ -7,6 +7,7 @@ import org.openjdk.jmh.annotations.Setup;
 import org.trimou.engine.MustacheEngineBuilder;
 import org.trimou.engine.config.EngineConfigurationKey;
 import org.trimou.engine.locator.ClassPathTemplateLocator;
+import org.trimou.engine.locator.FileSystemTemplateLocator;
 import org.trimou.engine.resolver.CombinedIndexResolver;
 import org.trimou.handlebars.HelpersBuilder;
 import org.trimou.handlebars.NumberMatchingHelper;
@@ -25,7 +26,8 @@ public class Trimou extends BaseBenchmark {
                 .setProperty(EngineConfigurationKey.SKIP_VALUE_ESCAPING, true)
                 // Disable useless resolver
                 .setProperty(CombinedIndexResolver.ENABLED_KEY, false)
-                .addTemplateLocator(ClassPathTemplateLocator.builder(1).setRootPath("templates").setScanClasspath(false).setSuffix("trimou.html").build())
+//                .addTemplateLocator(ClassPathTemplateLocator.builder(1).setRootPath("templates").setScanClasspath(false).setSuffix("trimou.html").build())
+                .addTemplateLocator(FileSystemTemplateLocator.builder().setRootPath("src/main/resources/templates").setSuffix("trimou.html").build())
                 .registerHelpers(HelpersBuilder.extra().add("isNeg", new NumberMatchingHelper() {
                     @Override
                     protected boolean isMatching(Number value) {

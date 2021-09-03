@@ -20,12 +20,15 @@ public class Velocity extends BaseBenchmark {
     public void setup() {
         Properties configuration = new Properties();
         configuration.setProperty("resource.loader", "class");
-        configuration.setProperty("class.resource.loader.class",
-                "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
-
+//        configuration.setProperty("class.resource.loader.class",
+//                "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
+        configuration.setProperty("resource.loader", "file");
+        configuration.setProperty("resource.loader.file.class", "org.apache.velocity.runtime.resource.loader.FileResourceLoader");
+        configuration.setProperty("resource.loader.file.path", ".");
+        
         VelocityEngine engine = new VelocityEngine(configuration);
         context = new VelocityContext(getContext());
-        template = engine.getTemplate("templates/stocks.velocity.html", "UTF-8");
+        template = engine.getTemplate("src/main/resources/templates/stocks.velocity.html", "UTF-8");
     }
 
     @Benchmark

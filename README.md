@@ -4,6 +4,7 @@ template-benchmark
 JMH benchmark for popular Java template engines:
 
 * [Freemarker](http://freemarker.org/)
+* [Inverno](https://inverno.io)
 * [Mustache](https://github.com/spullara/mustache.java)
 * [Pebble](http://www.mitchellbosecke.com/pebble)
 * [Rocker](https://github.com/fizzed/rocker)
@@ -14,6 +15,7 @@ JMH benchmark for popular Java template engines:
 Running the benchmark
 ======================
 
+0. Make sure you are using JDK>=16
 1. Download the source code and build it (`mvn clean install`)
 2. Run the entire benchmark suite with `java -jar target/benchmarks.jar`
 3. (Optional) To run a single benchmark, such as Mustache, use `java -jar target/benchmarks.jar Mustache`
@@ -29,7 +31,7 @@ It is imperative that each template engine is configured in way to reflect real-
 
 To strive for a common set of features across template engines, the following configurations are expected:
 * Disabling of HTML escaping
-* Template loaded from classpath prior to actual benchmark
+* Template loaded from file system prior to actual benchmark
 
 Interpreting the Results
 ========================

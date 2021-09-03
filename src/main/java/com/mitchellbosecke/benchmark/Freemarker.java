@@ -1,5 +1,6 @@
 package com.mitchellbosecke.benchmark;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
@@ -9,6 +10,7 @@ import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Setup;
 
 import freemarker.cache.ClassTemplateLoader;
+import freemarker.cache.FileTemplateLoader;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -22,7 +24,8 @@ public class Freemarker extends BaseBenchmark {
     @Setup
     public void setup() throws IOException {
         Configuration configuration = new Configuration(Configuration.VERSION_2_3_22);
-        configuration.setTemplateLoader(new ClassTemplateLoader(getClass(), "/"));
+//        configuration.setTemplateLoader(new ClassTemplateLoader(getClass(), "/"));
+        configuration.setTemplateLoader(new FileTemplateLoader(new File("src/main/resources")));
         template = configuration.getTemplate("templates/stocks.freemarker.html");
         this.context = getContext();
     }

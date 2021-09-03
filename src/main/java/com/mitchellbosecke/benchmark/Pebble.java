@@ -9,7 +9,6 @@ import org.openjdk.jmh.annotations.Setup;
 
 import com.mitchellbosecke.pebble.PebbleEngine;
 import com.mitchellbosecke.pebble.error.PebbleException;
-import com.mitchellbosecke.pebble.extension.escaper.EscaperExtension;
 import com.mitchellbosecke.pebble.template.PebbleTemplate;
 
 public class Pebble extends BaseBenchmark {
@@ -20,9 +19,8 @@ public class Pebble extends BaseBenchmark {
 
     @Setup
     public void setup() throws PebbleException {
-        PebbleEngine engine = new PebbleEngine();
-        engine.getExtension(EscaperExtension.class).setAutoEscaping(false);
-        template = engine.getTemplate("templates/stocks.pebble.html");
+    	PebbleEngine engine = new PebbleEngine.Builder().autoEscaping(false).build();
+        template = engine.getTemplate("src/main/resources/templates/stocks.pebble.html");
         this.context = getContext();
     }
 
